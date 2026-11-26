@@ -471,11 +471,21 @@ function initContactForm() {
       return;
     }
 
+    const senderName = nameInput.value.trim();
     formattedInquiry = [
-      `Name: ${nameInput.value.trim()}`,
+      `Name: ${senderName}`,
       `Email: ${emailInput.value.trim()}`,
       `Message:\n${messageInput.value.trim()}`
     ].join('\n');
+
+    const mailtoBtn = document.getElementById('mailto-inquiry-btn');
+    if (mailtoBtn) {
+      const subject = `Portfolio Inquiry from ${senderName}`;
+      mailtoBtn.setAttribute(
+        'href',
+        `mailto:celestinebukason5@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedInquiry)}`
+      );
+    }
 
     if (alertBox) {
       alertBox.classList.remove('hidden');
@@ -566,7 +576,7 @@ function initCopyEmail() {
   if (!copyBtn || copyBtn.dataset.bound) return;
   copyBtn.dataset.bound = 'true';
 
-  const emailToCopy = 'glory.ogbonna@example.com';
+  const emailToCopy = 'celestinebukason5@gmail.com';
 
   copyBtn.addEventListener('click', () => {
     if (navigator.clipboard && navigator.clipboard.writeText) {

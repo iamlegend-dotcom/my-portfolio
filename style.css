@@ -179,9 +179,13 @@ body {
   color: var(--text-primary);
   line-height: 1.65;
   transition: background-color 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   min-height: 100vh;
+}
+
+#site-header-root {
+  display: contents;
 }
 
 /* Subtle background grain simulation */
@@ -415,8 +419,19 @@ button, input, textarea, select {
 }
 
 /* --------------------------------------------------------------------------
-   SIDEBAR DOCK MODE (When User Scrolls Down — Left-Hand Side Dock)
+   SIDEBAR DOCK MODE (Desktop Only — Left-Hand Side Dock When Scrolling)
    -------------------------------------------------------------------------- */
+@keyframes sideDockInLeft {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
 @media (min-width: 993px) {
   .site-header.docked-sidebar {
     position: fixed;
@@ -435,32 +450,10 @@ button, input, textarea, select {
     animation: sideDockInLeft 0.3s var(--ease-smooth);
   }
 
-  @keyframes sideDockInLeft {
-    0% {
-      opacity: 0;
-      transform: translateY(-50%) translateX(-30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(-50%) translateX(0);
-    }
-  }
-
   /* Prevent left dock from overlapping page content on compact desktop screens */
   body:has(.site-header.docked-sidebar) main {
     padding-left: 0;
   }
-}
-
-@media (min-width: 993px) and (max-width: 1360px) {
-  .site-header.docked-sidebar {
-    left: 1rem;
-  }
-  body:has(.site-header.docked-sidebar) main {
-    padding-left: 4.5rem;
-    transition: padding-left 0.3s ease;
-  }
-}
 
   .site-header.docked-sidebar .container.nav-inner {
     flex-direction: column;
@@ -557,36 +550,54 @@ button, input, textarea, select {
   }
 }
 
-/* Tablet & Mobile Floating Capsule when scrolling */
-@media (max-width: 992px) {
+@media (min-width: 993px) and (max-width: 1360px) {
   .site-header.docked-sidebar {
-    position: fixed;
-    top: 0.75rem;
     left: 1rem;
-    right: 1rem;
-    width: auto;
-    height: 60px;
-    border-radius: var(--radius-card);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-card);
-    background-color: var(--header-bg);
+  }
+  body:has(.site-header.docked-sidebar) main {
+    padding-left: 4.5rem;
+    transition: padding-left 0.3s ease;
+  }
+}
+
+/* Tablet & Mobile: Fixed Top Navbar on Scroll (Full-Width Reading Space) */
+@media (max-width: 992px) {
+  body {
+    padding-top: var(--nav-height);
   }
 
-  .site-header.docked-sidebar .nav-inner {
-    padding: 0 1rem;
+  .site-header,
+  .site-header.docked-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--nav-height);
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0;
+    z-index: 2500;
+  }
+
+  .site-header.scrolled,
+  .site-header.docked-sidebar.scrolled {
+    box-shadow: var(--shadow-soft);
+    border-bottom-color: var(--accent-border);
   }
 
   .site-header.docked-sidebar .nav-menu {
-    top: calc(0.75rem + 68px);
-    border-radius: var(--radius-card);
-    width: calc(100% - 2rem);
-    left: 1rem;
-    right: 1rem;
-    border: 1px solid var(--border-line);
-  }
-
-  .site-header.docked-sidebar + * {
-    margin-top: 0;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
   }
 }
 
@@ -2951,6 +2962,9 @@ button:disabled {
 }
 
 .form-alert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
   margin-top: 0.35rem;
 }
 .form-alert.hidden {

@@ -165,7 +165,7 @@
                   <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
                   <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
                   <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter / X ↗</a></li>
-                  <li><a href="mailto:glory.ogbonna@example.com">Email ↗</a></li>
+                  <li><a href="mailto:celestinebukason5@gmail.com">Email ↗</a></li>
                 </ul>
               </div>
             </div>
@@ -181,7 +181,7 @@
             </div>
             
             <div class="footer-bottom-actions">
-              <button type="button" class="btn btn-ghost-sm copy-email-btn" id="copy-email-btn" title="Copy email address to clipboard">
+              <button type="button" class="btn btn-ghost-sm copy-email-btn" id="copy-email-btn" title="Copy celestinebukason5@gmail.com to clipboard">
                 <span>Copy Email</span>
               </button>
               <a href="#" class="back-top-link" id="back-to-top-btn">
