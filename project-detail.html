@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project Case Study by Ogbonna Glory Chukwuebuka — Detailed architectural breakdown of real web development projects." />
+  <meta property="og:title" content="Case Study — Ogbonna Glory Chukwuebuka" />
+  <meta property="og:description" content="Project overview, design structure, technologies used, and interface screenshots." />
+  <title>Case Study — Ogbonna Glory Chukwuebuka</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230B0D10'/><path d='M16 6 L26 16 L16 26 L6 16 Z' fill='%23C6F432'/></svg>">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-case-study">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="site-header-root"></div>
+
+  <main id="main-content">
+    <article class="case-study-hero" id="case-study-root">
+      <div class="container">
+        <!-- Top Navigation & Project Switcher -->
+        <div class="case-study-topbar reveal">
+          <a href="projects.html" class="btn btn-ghost-sm">
+            &larr; Back to All Projects
+          </a>
+          <nav class="case-switcher" aria-label="Switch Project Case Study">
+            <a href="project-detail.html?project=bright-school" class="case-switch-link" data-project-key="bright-school">01 / Bright School</a>
+            <a href="project-detail.html?project=vantrex" class="case-switch-link" data-project-key="vantrex">02 / Vantrex Market</a>
+            <a href="project-detail.html?project=alpha-clinic" class="case-switch-link" data-project-key="alpha-clinic">03 / Alpha Clinic</a>
+          </nav>
+        </div>
+
+        <!-- A. PROJECT INTRODUCTION -->
+        <header class="case-study-intro reveal">
+          <span class="eyebrow" id="cs-category">01 / Education · School Website</span>
+          <h1 class="hero-title-oversized" id="cs-title" style="margin-bottom: 1.25rem;">
+            Bright International Secondary School Website
+          </h1>
+          <p class="hero-lead-text" id="cs-overview">
+            An institutional website designed to present Bright International Secondary School's academic programs, admissions path, campus life, and student/staff portal access in a clear, structured layout.
+          </p>
+        </header>
+
+        <!-- Structured Metadata Strip -->
+        <div class="case-study-meta-grid glass-card reveal delay-1">
+          <div class="meta-block">
+            <span>Project</span>
+            <strong id="cs-meta-name">Bright International Secondary School</strong>
+          </div>
+          <div class="meta-block">
+            <span>Category</span>
+            <strong id="cs-meta-category">Education / Institutional</strong>
+          </div>
+          <div class="meta-block">
+            <span>Stack</span>
+            <strong id="cs-meta-stack">HTML, CSS, JavaScript</strong>
+          </div>
+          <div class="meta-block">
+            <span>Deployment</span>
+            <strong id="cs-meta-status">Not Yet Publicly Hosted</strong>
+          </div>
+        </div>
+
+        <!-- Primary Project Screenshot -->
+        <div class="case-study-visual-frame glass-card reveal delay-2" id="cs-primary-visual">
+          <div class="visual-frame-bar">
+            <span class="visual-frame-label" id="cs-visual-label">// PRIMARY INTERFACE VIEW</span>
+            <span class="tag-badge" id="cs-visual-badge">16:9 Desktop Viewport</span>
+          </div>
+          <div class="visual-frame-canvas" id="cs-visual-canvas">
+            <img
+              src="assets/images/bright-international-school.jpg"
+              alt="Bright International Secondary School website hero interface"
+              class="case-study-screenshot"
+              id="cs-hero-img"
+            />
+          </div>
+        </div>
+
+        <!-- B–E. STRUCTURED CASE STUDY BODY -->
+        <div class="case-study-body">
+          <!-- B. Project Background -->
+          <section class="case-study-section reveal" id="cs-background-section">
+            <span class="eyebrow">01 / Project Background</span>
+            <h2>Purpose &amp; Institutional Need</h2>
+            <div id="cs-background-copy">
+              <p>
+                Secondary schools communicate with multiple distinct audiences—prospective parents reviewing admission criteria, current students looking for academic details, alumni, and staff members. Without a centralized, clear website, essential information such as enrollment steps and school sections becomes difficult to locate.
+              </p>
+              <p>
+                This website was built to give Bright International Secondary School a clear digital entry point that establishes trust immediately and organizes academic, admission, and community sections into one coherent navigation bar.
+              </p>
+            </div>
+          </section>
+
+          <!-- C. Design and Development -->
+          <section class="case-study-section reveal" id="cs-design-section">
+            <span class="eyebrow">02 / Design &amp; Development</span>
+            <h2>Interface Structure &amp; Implementation</h2>
+            <div id="cs-design-copy">
+              <p>
+                The landing view uses full-bleed campus photography paired with a high-contrast dark scrim so the main welcome heading, school motto ("Building Future Leaders Through Quality Education &amp; Character Development"), and primary actions remain legible on first load.
+              </p>
+              <p>
+                Primary navigation organizes top-level school pathways—Home, About, Academics, Gallery, Alumni, Admission, Contact, and Login—alongside a dedicated "Enroll Now" call to action button in both the header and hero for direct prospective student inquiries.
+              </p>
+            </div>
+          </section>
+
+          <!-- D. Technologies Used -->
+          <section class="case-study-section reveal" id="cs-tech-section">
+            <span class="eyebrow">03 / Technologies Used</span>
+            <h2>Technical Stack</h2>
+            <div class="case-tech-grid" id="cs-tech-grid">
+              <div class="case-tech-item glass-card">
+                <span class="case-tech-label">Markup</span>
+                <h3>HTML5</h3>
+                <p>Semantic header, navigation, hero landmark, and accessible button and link structure.</p>
+              </div>
+              <div class="case-tech-item glass-card">
+                <span class="case-tech-label">Styling</span>
+                <h3>CSS3</h3>
+                <p>Full-bleed background layering, contrast overlays, responsive typography, and action button styling.</p>
+              </div>
+              <div class="case-tech-item glass-card">
+                <span class="case-tech-label">Interactivity</span>
+                <h3>JavaScript</h3>
+                <p>Client-side interactive UI behavior and navigation support across viewports.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- E. Project Gallery (Accommodates 1 or multiple screenshots cleanly) -->
+          <section class="case-study-section reveal" id="cs-gallery-section">
+            <span class="eyebrow">04 / Project Gallery</span>
+            <h2>Interface Views</h2>
+            <div class="project-gallery-grid" id="cs-gallery-grid">
+              <figure class="gallery-figure glass-card">
+                <img
+                  src="assets/images/bright-international-school.jpg"
+                  alt="Bright International Secondary School homepage hero and navigation bar"
+                  class="gallery-img"
+                />
+                <figcaption class="gallery-caption">
+                  Homepage hero view showing navigation links, campus photography backdrop, and enrollment calls to action.
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <!-- F. Closing Navigation -->
+          <nav class="case-study-nav reveal" aria-label="Case Study Pagination">
+            <a href="projects.html" class="btn btn-ghost">
+              &larr; All Projects
+            </a>
+            <div class="case-study-next-group">
+              <a href="project-detail.html?project=alpha-clinic" class="btn btn-ghost-sm" id="cs-prev-btn">
+                &larr; Previous Project
+              </a>
+              <a href="project-detail.html?project=vantrex" class="btn btn-ice magnetic" id="cs-next-btn">
+                <span>Next: Vantrex Market</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer-root"></div>
+
+  <script src="components.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

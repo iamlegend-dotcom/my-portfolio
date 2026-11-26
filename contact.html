@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Ogbonna Glory Chukwuebuka — Web Developer working with Python, Django, HTML, CSS, and JavaScript." />
+  <meta property="og:title" content="Contact — Ogbonna Glory Chukwuebuka" />
+  <meta property="og:description" content="Get in touch regarding web development projects and opportunities." />
+  <title>Contact — Ogbonna Glory Chukwuebuka</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230B0D10'/><path d='M16 6 L26 16 L16 26 L6 16 Z' fill='%23C6F432'/></svg>">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-contact">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="site-header-root"></div>
+
+  <main id="main-content">
+    <section class="section" id="contact-hero">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">01 / Contact</span>
+          <h1 class="hero-title-oversized" style="margin-bottom: 1.25rem;">Get in Touch</h1>
+          <div class="heading-line"></div>
+          <p class="hero-lead-text" style="margin-bottom: 0;">
+            Available for web development projects, Python/Django builds, and junior developer roles. Use the form below to prepare your inquiry details.
+          </p>
+        </div>
+
+        <div class="contact-layout-grid">
+          <!-- Contact Info Column -->
+          <div class="contact-channels reveal">
+            <div class="eyebrow-badge" style="width: fit-content;">
+              <span class="pulse-indicator"></span>
+              <span>Available for Projects &amp; Roles</span>
+            </div>
+
+            <h2 class="contact-heading">Developer Details</h2>
+            <p class="contact-subtext">
+              Based in Abia State, Nigeria. Open to collaborating on websites, Django applications, and frontend layout improvements.
+            </p>
+
+            <div class="contact-channels-list">
+              <!-- Location & Timezone -->
+              <div class="channel-card glass-card">
+                <div class="c-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <span class="c-label">Location &amp; Timezone</span>
+                  <span class="c-val">Abia State, Nigeria (WAT / UTC+1)</span>
+                </div>
+              </div>
+
+              <!-- Stack -->
+              <div class="channel-card glass-card">
+                <div class="c-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <span class="c-label">Core Technologies</span>
+                  <span class="c-val">Python, Django, HTML, CSS, JavaScript</span>
+                </div>
+              </div>
+
+              <!-- Direct Contact Status (No Invented Email / Social URLs) -->
+              <div class="channel-card glass-card">
+                <div class="c-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <span class="c-label">Direct Email &amp; Profiles</span>
+                  <span class="c-val" style="color: var(--muted); font-weight: 500; font-size: 0.925rem;">
+                    Verified personal email and social links will be linked here once finalized.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form Box -->
+          <div class="contact-form-box glass-card reveal delay-1">
+            <!-- Form Header -->
+            <div class="form-intro-header">
+              <span class="notice-tag">// PROJECT BRIEF</span>
+              <h2 class="form-intro-title">Send a Message</h2>
+              <p class="form-intro-sub">
+                Share a brief overview of what you are building, your timeline, or the role you have in mind.
+              </p>
+            </div>
+
+            <!-- Honest Validation / Prepared Feedback Banner -->
+            <div id="form-alert" class="form-alert hidden" role="status" aria-live="polite">
+              <div class="form-alert-content">
+                <strong id="form-alert-title">Inquiry Validated (Not Transmitted)</strong>
+                <span id="form-alert-msg">
+                  No backend mail server is connected to this static portfolio yet, so your message was not sent over the network. You can copy your formatted message below.
+                </span>
+                <div class="form-alert-actions">
+                  <button type="button" class="btn btn-ice-sm" id="copy-inquiry-btn">Copy Formatted Inquiry</button>
+                </div>
+              </div>
+            </div>
+
+            <form id="contact-form" class="ice-form" novalidate>
+              <div class="form-field">
+                <label for="name" class="field-label">Full Name <span class="req">*</span></label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="field-input" 
+                  placeholder="Enter your name" 
+                  autocomplete="name" 
+                  required 
+                />
+                <span class="error-text" id="name-error" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="email" class="field-label">Email Address <span class="req">*</span></label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="field-input" 
+                  placeholder="you@domain.com" 
+                  autocomplete="email" 
+                  required 
+                />
+                <span class="error-text" id="email-error" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="message" class="field-label">Project Details or Message <span class="req">*</span></label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="5" 
+                  class="field-textarea" 
+                  placeholder="Briefly describe your project, goals, or timeline..." 
+                  required
+                ></textarea>
+                <span class="error-text" id="message-error" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn-ice btn-block magnetic" id="submit-btn">
+                <span>Validate &amp; Prepare Inquiry</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer-root"></div>
+
+  <script src="components.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
