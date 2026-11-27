@@ -162,10 +162,8 @@
               <div class="footer-col">
                 <span class="footer-col-title">Connect</span>
                 <ul class="footer-links">
-                  <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
-                  <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
-                  <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter / X ↗</a></li>
-                  <li><a href="mailto:celestinebukason5@gmail.com">Email ↗</a></li>
+                  <li><a href="mailto:celestinebukason5@gmail.com">celestinebukason5@gmail.com ↗</a></li>
+                  <li><a href="contact.html">Contact Form &rarr;</a></li>
                 </ul>
               </div>
             </div>
