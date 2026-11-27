@@ -710,7 +710,8 @@ function initProjectDetail() {
       eyebrow: '01 / Education · School Website',
       metaCategory: 'Education / Institutional',
       metaStack: 'HTML, CSS, JavaScript',
-      metaStatus: 'Not Yet Publicly Hosted',
+      metaStatus: 'Live on GitHub Pages',
+      liveUrl: 'https://iamlegend-dotcom.github.io/bright-international-school/',
       overview:
         "An institutional website designed to present Bright International Secondary School's academic programs, admissions path, campus life, and student/staff portal access in a clear, structured layout.",
       visualLabel: '// BRIGHT INTERNATIONAL SECONDARY SCHOOL — HERO VIEW',
@@ -747,7 +748,8 @@ function initProjectDetail() {
       eyebrow: '02 / Finance & Investment · Web Interface',
       metaCategory: 'Finance / Investment Platform',
       metaStack: 'HTML, CSS, JavaScript',
-      metaStatus: 'Not Yet Publicly Hosted',
+      metaStatus: 'Live on GitHub Pages',
+      liveUrl: 'https://iamlegend-dotcom.github.io/Vantrex-market/',
       overview:
         'The Vantrex Market cryptocurrency investing interface built around transparent plan presentation, plain-language reporting, wallet connection actions, and a live-style market snapshot card.',
       visualLabel: '// VANTREX MARKET — HERO & MARKET SNAPSHOT',
@@ -784,7 +786,8 @@ function initProjectDetail() {
       eyebrow: '03 / Healthcare · Clinic Website',
       metaCategory: 'Healthcare / Cardiology Clinic',
       metaStack: 'Python, Django, HTML, CSS, JavaScript',
-      metaStatus: 'Not Yet Publicly Hosted',
+      metaStatus: 'Live on GitHub Pages',
+      liveUrl: 'https://iamlegend-dotcom.github.io/alpha-clinic/',
       overview:
         'A healthcare and cardiology clinic website designed to present clinical services, appointment scheduling entry points, and patient portal access in a clear, trustworthy interface.',
       visualLabel: '// ALPHA CLINIC — HERO & DEPARTMENT PREVIEW',
@@ -843,7 +846,18 @@ function initProjectDetail() {
   setText('cs-meta-name', data.metaName);
   setText('cs-meta-category', data.metaCategory);
   setText('cs-meta-stack', data.metaStack);
-  setText('cs-meta-status', data.metaStatus);
+  const statusEl = document.getElementById('cs-meta-status');
+  if (statusEl) {
+    if (data.liveUrl) {
+      statusEl.innerHTML = `<a href="${data.liveUrl}" target="_blank" rel="noopener noreferrer" class="editorial-link">View Live Site &nearr;</a>`;
+    } else {
+      statusEl.textContent = data.metaStatus;
+    }
+  }
+  const liveBtn = document.getElementById('cs-live-btn');
+  if (liveBtn && data.liveUrl) {
+    liveBtn.href = data.liveUrl;
+  }
   setText('cs-visual-label', data.visualLabel);
   setText('cs-visual-badge', data.visualBadge);
 
