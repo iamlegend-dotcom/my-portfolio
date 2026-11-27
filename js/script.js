@@ -5,24 +5,32 @@
  * Counters, Filtering, Accordions, and Accessible Form Validation.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initApp();
-});
+let liveClockIntervalId = null;
+let inspirationDocClickBound = false;
 
-// Also re-bind component-dependent handlers when components.js finishes mounting
-document.addEventListener('componentsMounted', () => {
+function initDynamicComponents() {
+  initScrollProgress();
+  initSmartHeader();
   initNavControls();
   initCustomCursor();
   initPageTransitions();
   initLiveClock();
   initCopyEmail();
+  initBackToTop();
   initAmbientCodeBackdrop();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initApp();
+});
+
+// Re-bind idempotent component-dependent handlers when components.js mounts
+document.addEventListener('componentsMounted', () => {
+  initDynamicComponents();
 });
 
 function initApp() {
-  initScrollProgress();
-  initSmartHeader();
-  initCustomCursor();
+  initDynamicComponents();
   initCardSpotlight();
   initMagneticElements();
   initScrollReveal();
@@ -30,14 +38,9 @@ function initApp() {
   initProjectFiltering();
   initFaqAccordion();
   initContactForm();
-  initBackToTop();
-  initPageTransitions();
-  initLiveClock();
-  initCopyEmail();
   initInspirationTree();
   initHeroTyping();
   initProjectDetail();
-  initAmbientCodeBackdrop();
 }
 
 /* ==========================================================================
@@ -47,12 +50,13 @@ function initCustomCursor() {
   const cursor = document.getElementById('custom-cursor');
   const follower = document.getElementById('cursor-follower');
 
-  if (!cursor || !follower) return;
+  if (!cursor || !follower || cursor.dataset.bound) return;
 
   // Check if pointer is fine (desktop/mouse)
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!isFinePointer) return;
 
+  cursor.dataset.bound = 'true';
   document.body.classList.add('has-custom-cursor');
 
   let mouseX = -100;
@@ -80,6 +84,8 @@ function initCustomCursor() {
   // Hover state detection
   const interactiveSelectors = 'a, button, input, textarea, select, .filter-btn, .accordion-trigger, [role="button"], .spotlight-card';
   document.querySelectorAll(interactiveSelectors).forEach((el) => {
+    if (el.dataset.cursorBound) return;
+    el.dataset.cursorBound = 'true';
     el.addEventListener('mouseenter', () => follower.classList.add('hovered'));
     el.addEventListener('mouseleave', () => follower.classList.remove('hovered'));
   });
@@ -90,7 +96,8 @@ function initCustomCursor() {
    ========================================================================== */
 function initSmartHeader() {
   const header = document.getElementById('header');
-  if (!header) return;
+  if (!header || header.dataset.bound) return;
+  header.dataset.bound = 'true';
 
   function handleScroll() {
     const scrollY = window.scrollY;
@@ -111,7 +118,8 @@ function initSmartHeader() {
 
 function initScrollProgress() {
   const bar = document.getElementById('nav-progress');
-  if (!bar) return;
+  if (!bar || bar.dataset.bound) return;
+  bar.dataset.bound = 'true';
 
   function update() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -159,6 +167,12 @@ function initNavControls() {
         hamburgerBtn.focus();
       }
     });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 992 && navMenu.classList.contains('open')) {
+        closeMenu();
+      }
+    }, { passive: true });
   }
 
   function openMenu() {
@@ -178,8 +192,12 @@ function initNavControls() {
    4. Card Spotlight & Magnetic Interactions
    ========================================================================== */
 function initCardSpotlight() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
   const cards = document.querySelectorAll('.spotlight-card');
   cards.forEach((card) => {
+    if (card.dataset.spotlightBound) return;
+    card.dataset.spotlightBound = 'true';
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -196,6 +214,8 @@ function initMagneticElements() {
 
   const magneticItems = document.querySelectorAll('.magnetic');
   magneticItems.forEach((item) => {
+    if (item.dataset.magneticBound) return;
+    item.dataset.magneticBound = 'true';
     item.addEventListener('mousemove', (e) => {
       const rect = item.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
@@ -284,6 +304,8 @@ function initProjectFiltering() {
   if (!filterBtns.length || !projectItems.length) return;
 
   filterBtns.forEach((btn) => {
+    if (btn.dataset.filterBound) return;
+    btn.dataset.filterBound = 'true';
     btn.addEventListener('click', () => {
       const category = btn.getAttribute('data-filter');
 
@@ -318,6 +340,8 @@ function initFaqAccordion() {
   if (!accordionTriggers.length) return;
 
   accordionTriggers.forEach((trigger) => {
+    if (trigger.dataset.accordionBound) return;
+    trigger.dataset.accordionBound = 'true';
     trigger.addEventListener('click', () => {
       const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
       const contentId = trigger.getAttribute('aria-controls');
@@ -351,7 +375,8 @@ function initContactForm() {
   const alertBox = document.getElementById('form-alert');
   const submitBtn = document.getElementById('submit-btn');
 
-  if (!form) return;
+  if (!form || form.dataset.bound) return;
+  form.dataset.bound = 'true';
 
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
@@ -420,7 +445,47 @@ function initContactForm() {
   }
 
   let formattedInquiry = '';
+  const alertTitle = document.getElementById('form-alert-title');
+  const alertMsg = document.getElementById('form-alert-msg');
+  const mailtoBtn = document.getElementById('mailto-inquiry-btn');
+  const whatsappInquiryBtn = document.getElementById('whatsapp-inquiry-btn');
+  const whatsappSubmitBtn = document.getElementById('whatsapp-submit-btn');
   const copyInquiryBtn = document.getElementById('copy-inquiry-btn');
+  const WHATSAPP_BASE_URL = 'https://wa.me/2349051106189';
+
+  function buildValidatedInquiry() {
+    const isNameOk = validateName(true);
+    const isEmailOk = validateEmail(true);
+    const isMessageOk = validateMessage(true);
+
+    if (!isNameOk || !isEmailOk || !isMessageOk) {
+      if (alertBox) alertBox.classList.add('hidden');
+      if (!isNameOk) nameInput.focus();
+      else if (!isEmailOk) emailInput.focus();
+      else messageInput.focus();
+      return null;
+    }
+
+    const senderName = nameInput.value.trim();
+    const senderEmail = emailInput.value.trim();
+    const senderMessage = messageInput.value.trim();
+
+    formattedInquiry = [
+      `Name: ${senderName}`,
+      `Email: ${senderEmail}`,
+      `Message:\n${senderMessage}`
+    ].join('\n');
+
+    const subject = `Portfolio Inquiry from ${senderName}`;
+    const mailtoUrl = `mailto:celestinebukason5@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedInquiry)}`;
+    const whatsappText = `Hello Ogbonna Glory Chukwuebuka, here is my inquiry from your portfolio:\n\n${formattedInquiry}`;
+    const whatsappUrl = `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(whatsappText)}`;
+
+    if (mailtoBtn) mailtoBtn.setAttribute('href', mailtoUrl);
+    if (whatsappInquiryBtn) whatsappInquiryBtn.setAttribute('href', whatsappUrl);
+
+    return { mailtoUrl, whatsappUrl };
+  }
 
   if (copyInquiryBtn && !copyInquiryBtn.dataset.bound) {
     copyInquiryBtn.dataset.bound = 'true';
@@ -457,34 +522,51 @@ function initContactForm() {
     document.body.removeChild(temp);
   }
 
+  if (whatsappInquiryBtn && !whatsappInquiryBtn.dataset.bound) {
+    whatsappInquiryBtn.dataset.bound = 'true';
+    whatsappInquiryBtn.addEventListener('click', (e) => {
+      if (!buildValidatedInquiry()) {
+        e.preventDefault();
+        return;
+      }
+      if (alertTitle) alertTitle.textContent = 'WhatsApp Draft Opened';
+      if (alertMsg) {
+        alertMsg.textContent =
+          'Your inquiry opened in WhatsApp (it was not sent as an email). You can still open your email app or copy the formatted message below.';
+      }
+    });
+  }
+
+  if (whatsappSubmitBtn && !whatsappSubmitBtn.dataset.bound) {
+    whatsappSubmitBtn.dataset.bound = 'true';
+    whatsappSubmitBtn.addEventListener('click', () => {
+      const payload = buildValidatedInquiry();
+      if (!payload) return;
+
+      window.open(payload.whatsappUrl, '_blank', 'noopener,noreferrer');
+
+      if (alertTitle) alertTitle.textContent = 'WhatsApp Draft Opened';
+      if (alertMsg) {
+        alertMsg.textContent =
+          'Your validated inquiry opened in WhatsApp (not transmitted over email). You can also open your email app or copy your message below.';
+      }
+      if (alertBox) {
+        alertBox.classList.remove('hidden');
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const isNameOk = validateName(true);
-    const isEmailOk = validateEmail(true);
-    const isMessageOk = validateMessage(true);
+    const payload = buildValidatedInquiry();
+    if (!payload) return;
 
-    if (!isNameOk || !isEmailOk || !isMessageOk) {
-      if (!isNameOk) nameInput.focus();
-      else if (!isEmailOk) emailInput.focus();
-      else messageInput.focus();
-      return;
-    }
-
-    const senderName = nameInput.value.trim();
-    formattedInquiry = [
-      `Name: ${senderName}`,
-      `Email: ${emailInput.value.trim()}`,
-      `Message:\n${messageInput.value.trim()}`
-    ].join('\n');
-
-    const mailtoBtn = document.getElementById('mailto-inquiry-btn');
-    if (mailtoBtn) {
-      const subject = `Portfolio Inquiry from ${senderName}`;
-      mailtoBtn.setAttribute(
-        'href',
-        `mailto:celestinebukason5@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedInquiry)}`
-      );
+    if (alertTitle) alertTitle.textContent = 'Inquiry Ready';
+    if (alertMsg) {
+      alertMsg.textContent =
+        'This static form validates your inquiry locally rather than sending automatically via a server. Open it in your email app, continue via WhatsApp, or copy it below.';
     }
 
     if (alertBox) {
@@ -503,6 +585,8 @@ function initPageTransitions() {
 
   const links = document.querySelectorAll('a[href$=".html"]');
   links.forEach((link) => {
+    if (link.dataset.transitionBound) return;
+    link.dataset.transitionBound = 'true';
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       // Do not intercept external links, new tabs, or anchor jumps
@@ -531,12 +615,12 @@ function initPageTransitions() {
    ========================================================================== */
 function initBackToTop() {
   const btn = document.getElementById('back-to-top-btn');
-  if (btn) {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  if (!btn || btn.dataset.bound) return;
+  btn.dataset.bound = 'true';
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
 /* ==========================================================================
@@ -544,7 +628,13 @@ function initBackToTop() {
    ========================================================================== */
 function initLiveClock() {
   const clockEl = document.getElementById('live-time-display');
-  if (!clockEl) return;
+  if (!clockEl || clockEl.dataset.bound) return;
+  clockEl.dataset.bound = 'true';
+
+  if (liveClockIntervalId) {
+    clearInterval(liveClockIntervalId);
+    liveClockIntervalId = null;
+  }
 
   function tick() {
     try {
@@ -565,7 +655,7 @@ function initLiveClock() {
   }
 
   tick();
-  setInterval(tick, 1000);
+  liveClockIntervalId = setInterval(tick, 1000);
 }
 
 /* ==========================================================================
@@ -622,7 +712,9 @@ function initInspirationTree() {
   if (!treeNodes.length) return;
 
   treeNodes.forEach((node) => {
-    node.addEventListener('click', (e) => {
+    if (node.dataset.treeBound) return;
+    node.dataset.treeBound = 'true';
+    node.addEventListener('click', () => {
       // Toggle focus/open state on mobile
       const isOpen = node.classList.contains('active-node');
       treeNodes.forEach((n) => n.classList.remove('active-node'));
@@ -632,11 +724,14 @@ function initInspirationTree() {
     });
   });
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.tree-node')) {
-      treeNodes.forEach((n) => n.classList.remove('active-node'));
-    }
-  });
+  if (!inspirationDocClickBound) {
+    inspirationDocClickBound = true;
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.tree-node')) {
+        document.querySelectorAll('.tree-node').forEach((n) => n.classList.remove('active-node'));
+      }
+    });
+  }
 }
 
 /* ==========================================================================

@@ -163,6 +163,7 @@
                 <span class="footer-col-title">Connect</span>
                 <ul class="footer-links">
                   <li><a href="mailto:celestinebukason5@gmail.com">celestinebukason5@gmail.com ↗</a></li>
+                  <li><a href="https://wa.me/2349051106189" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp +234 905 110 6189 (opens in a new tab)">WhatsApp (+234 905 110 6189) ↗</a></li>
                   <li><a href="contact.html">Contact Form &rarr;</a></li>
                 </ul>
               </div>
