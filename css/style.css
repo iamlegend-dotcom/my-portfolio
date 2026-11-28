@@ -2537,11 +2537,29 @@ button:disabled {
   line-height: 1.7;
 }
 
+.footer-brand .brand {
+  flex-shrink: 1;
+  max-width: 100%;
+  align-items: flex-start;
+}
+
+.footer-brand .brand-mark {
+  margin-top: 0.35rem;
+}
+
+.footer-brand .brand-text {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
 .footer-status-pill {
   display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.6rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
   max-width: 100%;
   margin-top: 1.25rem;
   font-family: var(--font-code);
@@ -2551,8 +2569,18 @@ button:disabled {
   color: var(--text);
   background: var(--surface-elevated);
   border: 1px solid var(--border);
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.85rem;
   border-radius: var(--radius-tag);
+}
+
+.footer-status-pill .pulse-indicator {
+  flex-shrink: 0;
+  margin-top: 0.3em;
+}
+
+.footer-status-pill > span:last-child {
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .footer-nav-columns {
@@ -3286,13 +3314,17 @@ button:disabled {
     padding-bottom: 3.5rem;
   }
 
-  /* Clean Mobile Header */
+  /* Clean Mobile Header & Wrapping Footer Brand */
   .brand-subtitle {
     display: none !important;
   }
-  .brand-text {
+  .site-header .brand-text {
     font-size: 1rem;
     white-space: nowrap;
+  }
+  .footer-brand .brand-text {
+    font-size: clamp(1rem, 4.5vw, 1.15rem);
+    white-space: normal;
   }
 
   /* Responsive Hero Typography & Terminal */
@@ -3444,7 +3476,7 @@ button:disabled {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .brand-text {
+  .site-header .brand-text {
     font-size: 0.95rem;
   }
   .icon-btn {
